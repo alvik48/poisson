@@ -5,7 +5,7 @@
  * and at the same time to be as minimal as it possible
  * @type {number}
  */
-const FACTORIAL_CACHE_SIZE = 500;
+const FACTORIAL_CACHE_SIZE = 1000;
 
 /**
  * We need to prepare factorial cache for a future usage
@@ -73,13 +73,13 @@ function _calcFactorial(n) {
 }
 
 /**
- * Calculates probability of given score based on expected score
+ * Calculates probability of given value based on expected value
  *
  * @param expected
  * @param exact
  * @returns {number}
  */
-function probabilityPoisson(expected, exact) {
+function calcProbability(expected, exact) {
   const bf = FACTORIAL_CACHE[exact];
   const exactPart = Math.floor(exact / (bf.length + 1));
 
@@ -98,15 +98,23 @@ function probabilityPoisson(expected, exact) {
   return Math.exp(-expected) * result;
 }
 
-module.exports = function(MAX) {
-  MAX = MAX || 1000;
+/**
+ * Sets max size for factorial points storage object
+ *
+ * @param cacheSize
+ * @returns {calcProbability}
+ */
+calcProbability.setCacheSize = function(cacheSize) {
+  cacheSize = cacheSize || 1000;
 
-  FACTORIAL_POINTS = _getFactorialPoints(MAX);
-  FACTORIAL_CACHE.length = MAX;
+  FACTORIAL_POINTS = _getFactorialPoints(cacheSize);
+  FACTORIAL_CACHE.length = cacheSize;
 
   for (let i = 0; i < FACTORIAL_CACHE_SIZE; ++i) {
     FACTORIAL_CACHE[i] = _calcFactorial(i);
   }
 
-  return probabilityPoisson;
+  return calcProbability;
 };
+
+module.exports = calcProbability;

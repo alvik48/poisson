@@ -7,7 +7,8 @@ You can provide MAX number while importing this function to set up the cache siz
 Example of usage:
 
 ```javascript
-const poisson = require('poisson')(1000);
+const poisson = require('poisson');
+poisson.setCacheSize(777);
 
 let expected = 2.75;
 let target = 3;
