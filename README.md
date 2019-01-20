@@ -8,7 +8,7 @@ Example of usage:
 
 ```javascript
 const poisson = require('poisson');
-poisson.setCacheSize(777);
+poisson.setCacheSize(777); 
 
 let expected = 2.75;
 let target = 3;
